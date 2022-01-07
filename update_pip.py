@@ -20,12 +20,12 @@ def main():
 
 
 def package_check():
-    packages = subprocess.check_output(
+    outdated_packages = subprocess.check_output(
         [sys.executable, '-m', 'pip', 'list', '-o', '--format=freeze'])
-    if len(packages) > 0:
+    if len(outdated_packages) > 0:
         print('Outdated packages:')
         subprocess.check_call([sys.executable, '-m', 'pip', 'list', '-o'])
-        return packages
+        return outdated_packages
     else:
         return False
 
