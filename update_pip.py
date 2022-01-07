@@ -32,12 +32,17 @@ def package_check():
 
 def package_update(packages):
     update_packages = []
+    updated_packages = 0
     for package in packages.split():
         update_packages.append(package.decode().split('==')[0])
     for update in update_packages:
-        subprocess.check_call(
-            [sys.executable, '-m', 'pip', 'install', update, '--upgrade'])
-    print('Updated', len(packages), 'packages!')
+        try:
+            subprocess.check_call(
+                [sys.executable, '-m', 'pip', 'install', update, '--upgrade'])
+            updated_packages += 1
+        except subprocess.CalledProcessError as e:
+            print(e)
+    print('Updated', updated_packages, 'packages!')
 
 
 if __name__ == '__main__':
