@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Thanks to ActiveState for lots of this code.
+# Thanks to ActiveState for most of this code.
 # https://www.activestate.com/resources/quick-reads/how-to-install-python-packages-using-a-script/
 
 import sys
