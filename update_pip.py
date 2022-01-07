@@ -17,6 +17,7 @@ def main():
             [sys.executable, '-m', 'pip', 'list', '-o', '--format=freeze'])
         if len(packages) > 0:
             package_update(packages)
+            print('Updated', len(packages), 'packages!')
         else:
             print('No outdated packages!')
     except Exception as e:
