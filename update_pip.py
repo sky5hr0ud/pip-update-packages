@@ -10,18 +10,24 @@ import subprocess
 
 def main():
     try:
-        print('Outdated packages:')
-        subprocess.check_call(
-            [sys.executable, '-m', 'pip', 'list', '-o'])
-        packages = subprocess.check_output(
-            [sys.executable, '-m', 'pip', 'list', '-o', '--format=freeze'])
-        if len(packages) > 0:
-            package_update(packages)
-            print('Updated', len(packages), 'packages!')
-        else:
+        packages = package_check()
+        if packages is False:
             print('No outdated packages!')
+        else:
+            package_update(packages)
     except Exception as e:
         print(e)
+
+
+def package_check():
+    packages = subprocess.check_output(
+        [sys.executable, '-m', 'pip', 'list', '-o', '--format=freeze'])
+    if len(packages) > 0:
+        print('Outdated packages:')
+        subprocess.check_call([sys.executable, '-m', 'pip', 'list', '-o'])
+        return packages
+    else:
+        return False
 
 
 def package_update(packages):
@@ -31,6 +37,7 @@ def package_update(packages):
     for update in update_packages:
         subprocess.check_call(
             [sys.executable, '-m', 'pip', 'install', update, '--upgrade'])
+    print('Updated', len(packages), 'packages!')
 
 
 if __name__ == '__main__':
